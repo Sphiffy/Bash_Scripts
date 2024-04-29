@@ -19,12 +19,12 @@ num_cpu=$(lscpu | awk 'NR == 4' | tr -s ' ' | awk -F ' ' '{print $2}')
 system_load=$(uptime | tr -s ' ' | cut -d ' ' -f 7-)
 echo -e "Total System CPUs: $num_cpu\nSystem Load: $system_load"
 
-# Creating variable to gather current memeory utilization
+# Creating variable to gather current memeory utilization, using tr to make all blankspaces single blackspaces, using awk to get row 2 and field 2 and 7 for memory fields via the free command
 total_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $2}')
 available_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $7}')
 echo -e "Total System Memory: $total_mem\nAvailable System Memory: $available_mem"
 
-# Creating variable to gather swap information
+# Creating variable to gather swap information, using tr to create single blankspace characters between fields, using awk to get swap fields via the free command
 total_swap=$(free -h | awk 'NR == 3' | tr -s ' ' | awk -F ' ' '{print $2}')
 used_swap=$(free -h | awk 'NR == 3' | tr -s ' ' | awk -F ' ' '{print $3}')
 echo -e "Total System Swap: $total_swap\nSystem Swap Used: $used_swap"
