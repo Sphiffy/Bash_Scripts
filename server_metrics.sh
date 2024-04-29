@@ -17,3 +17,8 @@ echo -e "System Uptime: $system_uptime"
 # Creating variable to gather current load averages from uptime, use tr to translate all blankspaces to single blackspaces, use cut to remove all fields except 7 to the end using blankspace as the delimiter
 system_load=$(uptime | tr -s ' ' | cut -d ' ' -f 7-)
 echo -e "System Load: $system_load"
+
+# Creating variable to gather current memeory utilization
+total_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $2}')
+available_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $7}')
+echo -e "Total System Memory: $total_mem\nAvailable System Memory: $available_mem"
