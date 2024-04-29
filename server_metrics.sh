@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Author Sphiffy
+# Author: Sphiffy
 # Date: 4/29/2024
 # Description: This script is used to gather differennt system metrics from linux based hosts
 
