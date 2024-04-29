@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Author: Sphiffy
+# Date: 4/29/2024
+# Description: Reports directory statistics on specified directory from CLI
+
 # Take input from the user running the script using the read command and -p for prompt
 read -p 'Enter directory absolute path: ' dir_name
 
