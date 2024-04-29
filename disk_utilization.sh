@@ -10,7 +10,6 @@ partitions=$(df -h | grep -v tmpfs | grep -v Filesystem | tr -s ' ' | awk -F ' '
 
 # Command to get disk size: `df -h | grep /boot | tr -s ' ' | awk -F ' ' '{print $5}' | awk '{ print substr( $0, 1, length($0)-1 ) }'`
 
-
 # Create a for loop that goes through each partition and checks if the disk size is greater than 80 percent utilization, the loop uses each partition, and the if statement checks if it's value is greater than or equal to 80
 for x in $partitions; do
   if [[ $(df -h | grep $x | tr -s ' ' | awk -F ' ' '{print $5}' | awk '{ print substr( $0, 1, length($0)-1 ) }') -ge 80 ]]; then
