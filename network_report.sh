@@ -6,7 +6,7 @@
 
 
 # Variables
-hostname=($hostname)
+system_hostname=$(hostname)
 
 
 # Create the report file with the current date
@@ -31,7 +31,7 @@ report_header() {
 # Configure information to dump into report
 
 dump_info() {
-  echo -e "Network Report For: $hostname\n" > $REPORT
+  echo -e "Network Report For: $system_hostname\n" > $REPORT
 }
 
 
