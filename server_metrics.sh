@@ -22,3 +22,6 @@ echo -e "System Load: $system_load"
 total_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $2}')
 available_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $7}')
 echo -e "Total System Memory: $total_mem\nAvailable System Memory: $available_mem"
+
+# Creating variable to gather swap information
+
