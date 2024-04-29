@@ -24,4 +24,6 @@ available_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $7}')
 echo -e "Total System Memory: $total_mem\nAvailable System Memory: $available_mem"
 
 # Creating variable to gather swap information
-
+total_swap=$(free -h | awk 'NR == 3' | tr -s ' ' | awk -F ' ' '{print $2}')
+used_swap=$(free -h | awk 'NR == 3' | tr -s ' ' | awk -F ' ' '{print $3}')
+echo -e "Total System Swap: $total_swap\nSystem Swap Used: $used_swap"
