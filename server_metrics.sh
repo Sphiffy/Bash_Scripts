@@ -14,9 +14,10 @@ echo -e "------------------------------------------------------------\n"
 system_uptime=$(uptime | awk -F ' ' ' {print $2,$3,$4}' | awk '$0=gensub(/^(.*),/,"\\1 ","g",$0)')
 echo -e "System Uptime: $system_uptime"
 
-# Creating variable to gather current load averages from uptime, use tr to translate all blankspaces to single blackspaces, use cut to remove all fields except 7 to the end using blankspace as the delimiter
+# Creating variable to gather total number of cpus and current load averages from uptime, use tr to translate all blankspaces to single blackspaces, use cut to remove all fields except 7 to the end using blankspace as the delimiter
+num_cpu=$(lscpu | awk 'NR == 4' | tr -s ' ' | awk -F ' ' '{print $2}')
 system_load=$(uptime | tr -s ' ' | cut -d ' ' -f 7-)
-echo -e "System Load: $system_load"
+echo -e "Total System CPUs: $num_cpu\nSystem Load: $system_load"
 
 # Creating variable to gather current memeory utilization
 total_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $2}')
