@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Author: Sphiffy
+# Date: 4/29/2024
+# Description: Takes user input for any file path and returns size and type information
+
+
 # Ask user to input in the promt the aboslute path for a file and save it in the variable file_name
 read -p "Enter the absolute path to the file or directory: " file_name
 
