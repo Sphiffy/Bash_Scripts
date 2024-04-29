@@ -18,9 +18,11 @@ system_kernel_ver=$(uname -r)
 system_nics=$(ip -br addr | grep -v lo | tr -s ' ' | awk -F ' ' '{ print$1,$2,$3}')
 # Network Interface Names
 interfaces=$( nmcli con show | tail -n+2 | awk '{print $1}')
+# Netstat port scan for all listening ports
+netstat_output=$(netstat -tunpl | grep LISTEN | tr -s ' ' | awk '{print $1,$4,$7}')
 
 # Create the report file with the current date
-REPORT="network.$(date +'%d-%m-%y').info.txt"
+REPORT="/tmp/network.$(date +'%d-%m-%y').info.txt"
 
 # Configure a root check to ensure non root users are unable to run the script, the local variable keeps the variable inside this function block only
 chk_root() {
@@ -55,9 +57,18 @@ dump_info() {
       echo -e "Unable to retreive speed for: $int\n"**********"" >> $REPORT
     fi
   done
-}
 
+  # Configure Port Scanning for all listening ports
+  if [[ $(rpm -qa | grep net-tools &> /dev/null ; echo $?) -eq 0 ]]; then
+    echo -e "\nDisplaying all listening ports:\n$netstat_output" >> $REPORT
+  fi
+ }
+
+ report_end () {
+   echo -e "Report completed: $REPORT"
+ }
 
 chk_root
 report_header
 dump_info
+report_end
