@@ -7,7 +7,10 @@
 
 # Variables
 system_hostname=$(hostname)
-
+system_distribution=$(cat /etc/redhat-release)
+system_kernel_ver=$(uname -r)
+system_nics=$(ip -br addr | grep -v lo | tr -s ' ' | awk -F ' ' '{ print$1,$2,$3}')
+interfaces=$( nmcli con show | tail -n+2 | awk '{print $1}')
 
 # Create the report file with the current date
 REPORT="network.$(date +'%d-%m-%y').info.txt"
@@ -23,15 +26,29 @@ chk_root() {
 
 # Configure a header for the report file
 report_header() {
-  echo -e "----------------------------------"
+  echo -e "\n----------------------------------------"
   echo -e "Generating Network Report"
-  echo -e "----------------------------------"
+  echo -e "----------------------------------------\n"
 }
 
 # Configure information to dump into report
 
 dump_info() {
-  echo -e "Network Report For: $system_hostname\n" > $REPORT
+  echo -e "Network Report For: $system_hostname" > $REPORT
+  echo -e "----------------------------------------\n" >> $REPORT
+
+  # System Information
+  echo -e "System Distribution: $system_distribution\nCurrent Kernel Version: $system_kernel_ver\n" >> $REPORT
+
+  # Network Interface Information
+  for int in $interfaces; do
+    echo -e "Interface Name: $int" >> $REPORT
+    if [[ $(ethtool $int &> /dev/null;echo $?) -eq 0 ]]; then
+      echo -e "Speed: $(ethtool $int | grep Speed:)\n"*********"" >> $REPORT
+    else
+      echo -e "Unable to retreive speed for: $int\n"**********"" >> $REPORT
+    fi
+  done
 }
 
 
