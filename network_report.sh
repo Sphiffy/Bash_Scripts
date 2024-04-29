@@ -5,6 +5,10 @@
 # Description: Generate a report that gathers the systems current network configuration and statistics
 
 
+# Variables
+hostname=($hostname)
+
+
 # Create the report file with the current date
 REPORT="network.$(date +'%d-%m-%y').info.txt"
 
@@ -17,4 +21,20 @@ chk_root() {
   fi
 }
 
+# Configure a header for the report file
+report_header() {
+  echo -e "----------------------------------"
+  echo -e "Generating Network Report"
+  echo -e "----------------------------------"
+}
+
+# Configure information to dump into report
+
+dump_info() {
+  echo -e "Network Report For: $hostname\n" > $REPORT
+}
+
+
 chk_root
+report_header
+dump_info
