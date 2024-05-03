@@ -4,6 +4,14 @@
 # Date: 4/29/24
 # Description: Script that is used to report hardware metrics on the current system
 
+# Root check
+chk_root() {
+  local user_id=$(id -u)
+  if [[ $user_id -ne 0 ]]; then
+    echo "You need to be the root user to run this tool"
+    exit 999
+  fi
+}
 
 # Variables
 
@@ -36,15 +44,6 @@ process_count=$(($total_processes - 1))
 # Variable to display all block devices on the system
 block_devices=$(lsblk -dn)
 
-
-# Root check
-chk_root() {
-  local user_id=$(id -u)
-  if [[ $user_id -ne 0 ]]; then
-    echo "You need to be the root user to run this tool"
-    exit 999
-  fi
-}
 
 # Create the Report file
 REPORT="/tmp/hardware.$(date +'%d-%m-%y').info.txt"
