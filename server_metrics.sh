@@ -11,11 +11,11 @@ echo -e "\nSystem Metrics for $hostname"
 echo -e "------------------------------------------------------------\n"
 
 # Creating variable to gather current uptime using awk to get only time related fields, awk again to remove ending comma from the string
-system_uptime=$(uptime | awk -F ' ' ' {print $2,$3}' | awk '$0=gensub(/^(.*),/,"\\1 ","g",$0)')
+system_uptime=$(uptime | awk -F ' ' ' {print $2,$3,$4}' | awk '$0=gensub(/^(.*),/,"\\1 ","g",$0)')
 
 # Creating variable to gather total number of cpus and current load averages from uptime, use tr to translate all blankspaces to single blackspaces, use cut to remove all fields except 7 to the end using blankspace as the delimiter
 num_cpu=$(lscpu | awk 'NR == 4' | tr -s ' ' | awk -F ' ' '{print $2}')
-system_load=$(uptime | tr -s ' ' | cut -d ' ' -f 7-)
+system_load=$(uptime | tr -s ' ' | cut -d ' ' -f 10-)
 
 # Creating variable to gather current memeory utilization, using tr to make all blankspaces single blackspaces, using awk to get row 2 and field 2 and 7 for memory fields via the free command
 total_mem=$(free -h | awk 'NR == 2' | tr -s ' ' | awk -F ' ' '{print $2}')
