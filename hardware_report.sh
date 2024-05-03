@@ -66,8 +66,31 @@ dump_info() {
   # Current Kernel Version
   echo -e "Current Kernel Version: $kernel_version" >> $REPORT
 
+  # Current uptime
+  echo -e "\nSystem has been up since $sys_uptime and running for $sys_uptime_duration" >> $REPORT
+
+  # Current CPU info
+  echo -e "\nCPU Model: $cpu_model" >> $REPORT
+
+  # Current Partition Information
+  echo -e "\nPartition Information:\n$partition_info" >> $REPORT
+
+  # Current fstab information
+  echo -e "\nfstab Information:\n$fstab_info" >> $REPORT
+
+  # Current processes running
+  echo -e "\nTotal Number of Processes Running: $process_count" >> $REPORT
+
+  # Current Block Devices
+  echo -e "\nBlock Devices: $block_devices" >> $REPORT
+
+}
+
+report_end() {
+  echo -e "Report completed: $REPORT\n"
 }
 
 chk_root
 report_header
 dump_info
+report_end
