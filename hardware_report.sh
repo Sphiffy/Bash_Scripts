@@ -16,4 +16,21 @@ current_release=$(cat /etc/redhat-release)
 # Variable to get current kernel version
 kernel_version=$(uname -r)
 
+# Variable to get system uptime uptime date and duration
+sys_uptime=$(uptime -s)
+sys_uptime_duration=$(uptime -p)
+
+# Variable to get current partition information
+partition_info=$(df -hTx tmpfs | grep -vi tmpfs)
+
+# Variable to get fstab information
+fstab_info=$(cat /etc/fstab | grep -v '^#' | tr -s ' ')
+
+# Variable to get total number of processing currently running on the system
+total_processes=$(ps -e | wc -l)
+process_count=$(($total_processes - 1))
+
+# Variable to display all block devices on the system
+block_devices=$(lsblk -dn)
+
 
